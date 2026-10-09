@@ -14,7 +14,7 @@
     <!-- HEADER -->
     <div class="bg-black/40 backdrop-blur-md rounded-2xl shadow-lg p-6 mb-6 min-w-[32rem]">
         <div class="flex justify-center">
-            <img src="Logo.png" alt="DD SecurityLogo" class="w-32 sm:w-40 md:w-48 drop-shadow-lg" />
+            <img src="Logo.PNG" alt="DD SecurityLogo" class="w-32 sm:w-40 md:w-48 drop-shadow-lg" />
         </div>
     </div>
 
@@ -45,6 +45,7 @@
         <button class="mt-5 w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:scale-105 transition transform text-white font-bold py-3 rounded-lg shadow-lg"
                 onclick="checkerResult()">Check</button>
 
+         <!--Progress Bar -->
         <div class="mt-5">
             <div class="bg-gray-700 rounded-full h-5 overflow-hidden">
                 <div id="strengthBar" class="h-5 rounded-full transition-all duration-500"></div>
@@ -52,7 +53,9 @@
             <p id="strengthLabel" class="mt-2 text-sm"></p>
         </div>
 
+        <!-- Suggestions -->
         <div id="suggestions" class="text-sm mt-3 text-gray-200"></div>
+
     </div>
 
     <!-- PASSWORD GENERATOR -->
@@ -80,14 +83,14 @@
         <input type="text"
                class="w-full mt-6 bg-white/90 text-black border rounded-lg p-3 shadow focus:outline-none focus:ring-2 focus:ring-violet-500"
                placeholder="Generated password will appear here"
-               id="generatePassword" readonly>
-        <p id="generatorMessage" class="text-sm mt-2 text-amber-300" aria-live="polite"></p>
+               id="generatePassword">
+
     </div>
 
     <!-- PHISHING DETECTOR -->
     <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-8 min-w-[32rem]">
 
-        <script src="phishing-checker.js"></script>
+        <script src="class PhishingChecker.js"></script>
 
         <label class="font-bold text-2xl">Phishing Detector</label>
 
@@ -104,7 +107,7 @@
             placeholder="Paste email content here"></textarea>
 
         <button class="mt-4 w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:scale-105 transition transform text-white font-bold py-3 rounded-lg shadow-lg"
-                id="detectButton">Detect</button>
+                id="detectButton" src = "class PhishingChecker.js">Detect</button>
 
         <div class="mt-5">
             <div class="bg-gray-700 rounded-full h-6 overflow-hidden">
@@ -112,30 +115,32 @@
             </div>
             <p id="resultLabel" class="text-sm mt-2"></p>
         </div>
+
     </div>
 
     <div class="mt-10"></div>
 
-    <!-- VERNAM CIPHER -->
+     <!-- VERNAM CIPHER -->
     <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-8 min-w-[32rem]">
+        
         <label class="font-bold text-2xl">Vernam Cipher</label>
 
-        <textarea class="w-full mt-4 bg-white/90 text-black h-10 rounded-lg p-2 shadow focus:ring-2 focus:ring-violet-500"
-                  id="Ciphertext" placeholder="Enter your password"></textarea><br><br>
+        <textarea  class="w-full mt-4 bg-white/90 text-black h-10 rounded-lg p-2 shadow focus:ring-2 focus:ring-violet-500" id="Ciphertext" placeholder="Enter your password"></textarea><br><br>
 
-        <input class="w-full mt-4 bg-white/90 text-black h-10 rounded-lg p-2 shadow focus:ring-2 focus:ring-violet-500"
-               id="key" placeholder="Enter key (the same length)"><br><br>
+        <!-- The key must be the same length, else it won't work  -->
+        <input  class="w-full mt-4 bg-white/90 text-black h-10 rounded-lg p-2 shadow focus:ring-2 focus:ring-violet-500" id="key" placeholder="Enter key (the same length)"><br><br>
 
-        <button class="mt-4 w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:scale-105 transition transform text-white font-bold py-3 rounded-lg shadow-lg"
-                id="CipherBtn">Encrypt / Decrypt</button><br><br>
+        <button class="mt-4 w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:scale-105 transition transform text-white font-bold py-3 rounded-lg shadow-lg" 
+        id="CipherBtn" onclick="vCipher">Encrypt / Decrypt</button><br><br>
 
-        <textarea class="w-full mt-4 bg-white/90 text-black h-10 rounded-lg p-2 shadow focus:ring-2 focus:ring-violet-500"
-                  id="CipherOutput" placeholder="Result"></textarea>
-    </div>
+        <textarea  class="w-full mt-4 bg-white/90 text-black h-10 rounded-lg p-2 shadow focus:ring-2 focus:ring-violet-500" id="CipherOutput" placeholder="Result"></textarea>
+
+</div>
 
 <footer class="text-center py-6 text-gray-400 text-sm">
     Digital Defence Security Solutions © 2026
 </footer>
+
 
 <script>
 function checkerResult() {
@@ -146,23 +151,23 @@ function checkerResult() {
 
     let score = 0;
     let suggestions = [];
-
+    // checks password is at least 8 characters long
     if (password.length >= 8) score++;
     else suggestions.push("Strong passwords usually contain at minimum 8 characters");
-
+    // checks for uppercase letters
     if (/[A-Z]/.test(password)) score++;
     else suggestions.push("Consider adding some uppercase letters");
-
+    // checks for lowercase letters
     if (/[a-z]/.test(password)) score++;
     else suggestions.push("Consider adding some lowercase letters");
-
+    // checks for numbers
     if (/[0-9]/.test(password)) score++;
     else suggestions.push("Consider adding numbers to your password");
-
+    // checks for symbols
     if (/[!@#$£€%^&*(),.?\":;{}|<>_\-`'¬¦~=+/\\[\]]/.test(password)) score++;
     else suggestions.push("Consider adding special characters to your password, For example: (@!?%)");
 
-    const percent = (score / 5) * 100;
+    let percent = (score / 5) * 100;
     bar.style.width = percent + "%";
 
     if (password === "") {
@@ -172,13 +177,16 @@ function checkerResult() {
         return;
     }
 
+    //scores password based on criteria met and shows a bar to inform the user of their password strength and give suggetions
     if (score <= 2) {
         bar.style.backgroundColor = "#E24B4A";
         label.textContent = "Weak password";
-    } else if (score <= 4) {
+    }
+    else if (score <= 4) {
         bar.style.backgroundColor = "#EF9F27";
         label.textContent = "Moderate password";
-    } else {
+    }
+    else {
         bar.style.backgroundColor = "#639922";
         label.textContent = "Strong password";
     }
@@ -192,70 +200,67 @@ function checkerResult() {
     }
 }
 
-function secureRandomIndex(max) {
-    if (!window.crypto || !window.crypto.getRandomValues) {
-        throw new Error("Secure random number generation is unavailable in this browser.");
-    }
-
-    const limit = Math.floor(0x100000000 / max) * max;
-    const values = new Uint32Array(1);
-    do {
-        window.crypto.getRandomValues(values);
-    } while (values[0] >= limit);
-
-    return values[0] % max;
-}
-
 function generatePassword() {
     const length = parseInt(document.getElementById('lengthSlider').value, 10);
-    const output = document.getElementById('generatePassword');
-    const message = document.getElementById('generatorMessage');
     let charset = "";
-
     if (document.getElementById('includeLower').checked) charset += "abcdefghijklmnopqrstuvwxyz";
     if (document.getElementById('includeUpper').checked) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (document.getElementById('includeNumbers').checked) charset += "0123456789";
-    if (document.getElementById('includeSymbols').checked) charset += "!@#$%^&*()_+[]{}|;:,.<>?";
+    if (document.getElementById('includeSymbols').checked) charset += "!@#$%^&*()_+[]{}|:j,.<>?";
 
     if (charset.length === 0) {
-        output.value = "";
-        message.textContent = "Select at least one character type before generating a password.";
-        return;
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|:j,.<>?";
     }
 
-    try {
-        let password = "";
-        for (let i = 0; i < length; i++) {
-            password += charset[secureRandomIndex(charset.length)];
-        }
-        output.value = password;
-        message.textContent = "";
-    } catch (error) {
-        output.value = "";
-        message.textContent = error.message;
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
     }
+
+    document.getElementById('generatePassword').value = password;
 }
 
 function vCipher(message, key) {
+ 
     if (message.length != key.length) {
-        alert("Key length must match message length!");
-        return "";
+        alert("Key length must match message length!")
+        return ""
     }
+ 
+    var result = ""
 
-    let result = "";
-    for (let i = 0; i < message.length; i++) {
-        const messageChar = message.charCodeAt(i);
-        const keyChar = key.charCodeAt(i);
-        result = result + String.fromCharCode(messageChar ^ keyChar);
+     //The key has got be the same length as the message, else it won't work
+
+    
+ 
+    //This goes through one character at a time
+    for (var i = 0; i < message.length; i++) {
+ 
+        var messageChar = message.charCodeAt(i)
+        var keyChar = key.charCodeAt(i)
+ 
+        var xorResult = messageChar ^ keyChar
+        //This is where you XOR the two values together
+
+ 
+        result = result + String.fromCharCode(xorResult)
     }
-    return result;
+ 
+    return result
 }
-
+ 
+//Got the support from this from GeeksforGeeks
 document.getElementById("CipherBtn").onclick = function() {
-    const message = document.getElementById("Ciphertext").value;
-    const key = document.getElementById("key").value;
-    document.getElementById("CipherOutput").value = vCipher(message, key);
-};
+
+    var message = document.getElementById("Ciphertext").value
+    var key = document.getElementById("key").value
+
+    //The cipher function
+    var encryptedMessage = vCipher(message, key)
+
+    document.getElementById("CipherOutput").value = encryptedMessage
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('lengthSlider');
