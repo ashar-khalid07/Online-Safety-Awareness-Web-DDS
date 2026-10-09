@@ -1,31 +1,24 @@
 # Online Safety Awareness Website
 
-This is a browser-based online safety awareness project created as part of a six-person team. The supplied project files include an educational single-page website, password-strength feedback, a configurable password generator, a heuristic phishing detector and a Vernam/XOR cipher demonstration.
+This is a browser-based online safety project created as part of a six-person team. The website includes password-strength feedback, a password generator, a simple phishing detector and a Vernam/XOR cipher demonstration.
 
-## Features
+## Main functionality
 
-- Password-strength feedback based on length and character variety
-- Password generator with selectable character types and length
-- Validation that prevents password generation when no character-type option is selected
-- Browser Web Crypto API used for password-generation randomness
-- Heuristic phishing detector that scores suspicious sender/message patterns
-- Vernam/XOR cipher demonstration requiring a same-length key
-- Tailwind CSS browser build for the page layout
+- Checks password strength using length and character-type rules
+- Generates passwords with selectable character types and length
+- Scores possible phishing messages using sender details and suspicious text patterns
+- Demonstrates XOR-based encryption/decryption with a same-length key
+- Uses Tailwind CSS through a browser CDN for the interface
 
 ## Technologies
 
-- HTML5
+- HTML
 - JavaScript
-- Tailwind CSS (browser CDN)
-- Web Crypto API
+- Tailwind CSS
 
-## Screenshots
+## How to run it
 
-No generated or mock screenshot is included. Run the website locally to view the current interface.
-
-## Getting Started
-
-No build step is required. From the repository directory:
+No build step is required. Run a simple local server from the project folder:
 
 ```bash
 python -m http.server 8000
@@ -33,18 +26,20 @@ python -m http.server 8000
 
 Then open `http://localhost:8000`.
 
-An internet connection is required for the Tailwind browser CDN used by the supplied page.
+## Team project
 
-## Testing
+This was a six-person university team project, so the repository contains work from the group rather than code I personally wrote in full.
 
-No automated test suite is included. During portfolio preparation, the password-generator behaviour was inspected and repaired so that a password is not generated when all character-type options are deselected. The generator was also changed to use `crypto.getRandomValues()` rather than `Math.random()`.
+## Current limitations
 
-## Team Project / My Contribution
+This repository preserves the original project code. Some parts are simplified coursework implementations rather than production security tools.
 
-This was a six-person team project. The repository contains the team's website files. My verified contribution represented here includes debugging the password-generator validation so that the generator does not produce an unrestricted password when no character-type option is selected.
+The password generator uses `Math.random()`, and if every character-type option is deselected it falls back to using the full character set. The phishing detector is heuristic and the XOR cipher is included as an educational demonstration.
 
-The other features listed above describe functionality present in the team project as a whole and should not be read as claims that I personally implemented every component.
+## Possible next steps
 
-## Further Improvements
-
-Potential future improvements include stronger accessibility testing, automated browser tests, clearer JavaScript module separation, more robust URL/email parsing for phishing analysis and authenticated security tooling for real-world use. These are potential improvements, not current features.
+- Improve the password-generator validation
+- Use a cryptographically secure random source for generated passwords
+- Improve accessibility
+- Add automated browser tests
+- Make the phishing checks more robust
