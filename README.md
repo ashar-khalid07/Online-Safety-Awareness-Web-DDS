@@ -1,43 +1,54 @@
 # DD Security Solutions
 
-DD Security Solutions is a browser-based online safety project created for a university group assignment. The project brings together several small security-focused tools, including password checking, password generation, a phishing checker and a Vernam/XOR cipher demonstration.
+DD Security Solutions is a browser-based online safety project created for a six-person university group assignment. The site combines several small cybersecurity tools, including password checking, password generation, a rule-based phishing checker and a Vernam/XOR cipher demonstration.
+
+**HTML · JavaScript · Tailwind CSS**
+
+## Project screenshots
+
+<p align="center">
+  <img src="screenshots/password-checker.png" width="49%" alt="Password strength checker">
+  <img src="screenshots/password-generator.png" width="49%" alt="Password generator">
+</p>
+
+<p align="center">
+  <img src="screenshots/phishing-checker.png" width="49%" alt="Rule-based phishing checker">
+  <img src="screenshots/vernam-cipher.png" width="49%" alt="Vernam cipher interface">
+</p>
+
+The password tools check common password characteristics and generate passwords from selected character types. The phishing example above uses deliberately suspicious test input to demonstrate the rules the checker looks for; its percentage is a heuristic score rather than a real probability.
 
 ## Why we built it
 
-The aim of the assignment was to build an interactive website around online safety and cybersecurity concepts. As a group, we combined different tools into one site so users could experiment with ideas such as password strength, phishing indicators and simple encryption.
+The assignment was based around online safety and cybersecurity awareness. As a group, we combined several interactive tools into one website so users could experiment with password strength, password generation, phishing indicators and simple encryption.
 
 ## My contribution
 
 This was a six-person team project.
 
-I helped with some of the debugging and password-tool work, but my main responsibility was the Vernam cipher feature. I implemented the cipher logic and built the HTML interface around it so a user could enter a message and key, then encrypt or decrypt the result.
+I assisted with debugging and some of the password-tool work, but my main responsibility was the **Vernam cipher feature**. I implemented the XOR-based cipher logic and built the HTML interface for it, allowing a user to enter a message and a same-length key and then encrypt or decrypt the result.
 
-I also spent a lot of time on the HTML and presentation of that section. The encryption logic itself was relatively straightforward, but getting the interface to fit with the rest of the site and making the layout work the way I wanted took considerably more time.
+The encryption logic itself was relatively straightforward. The more time-consuming part was designing and integrating the HTML section so that it matched the rest of the site and worked cleanly alongside the other tools.
 
 ## Main functionality
 
-- Checks password strength using length and character-type rules
-- Generates passwords with selectable character types and length
-- Uses simple rules to flag possible phishing messages
-- Demonstrates XOR-based encryption and decryption using a same-length key
-- Provides the tools through a single browser-based interface
-
-## Technologies
-
-- HTML
-- JavaScript
-- Tailwind CSS
+- password-strength feedback using length and character-type checks
+- configurable password generation
+- rule-based phishing indicators using sender details and suspicious message patterns
+- Vernam/XOR encryption and decryption demonstration
+- browser-based interface styled with Tailwind CSS
 
 ## What I learned
 
-This project gave me practical experience with the technologies I was implementing rather than only learning them in isolation. In particular, I became more comfortable with:
+The project gave me practical experience with the technologies I was implementing rather than only learning them in isolation. In particular, I became more comfortable with:
 
-- structuring an interactive page with HTML
+- structuring interactive interfaces with HTML
 - connecting HTML elements to JavaScript
+- handling user input and DOM elements
 - debugging front-end behaviour
-- working with user input and DOM elements
+- using regular expressions and simple rule-based checks
 - implementing XOR-based encryption logic
-- combining my work with code produced by other members of a team
+- integrating my work with code written by other members of a team
 
 ## How to run it
 
@@ -47,7 +58,11 @@ No build step is required. From the project folder, run:
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Then open:
+
+```text
+http://localhost:8000
+```
 
 The page uses Tailwind CSS through a browser CDN, so an internet connection is needed for the styling to load correctly.
 
@@ -55,14 +70,16 @@ The page uses Tailwind CSS through a browser CDN, so an internet connection is n
 
 This is a university project rather than a production security tool.
 
-Some of the security features are deliberately simple. For example, the phishing checker uses rule-based indicators rather than reliably determining whether a message is malicious, and the password generator currently uses `Math.random()`.
+The phishing checker uses a small set of rules and its percentage is only a score based on matched indicators. It can produce false positives and false negatives.
 
-The original password-generator code also falls back to the full character set if every character-type option is deselected. This is something I would improve if I continued developing the project.
+The password generator uses `Math.random()`, and the original implementation falls back to the full character set if every character-type option is deselected.
+
+The Vernam section demonstrates XOR on character codes for learning purposes; its output can therefore include non-printable-looking characters.
 
 ## Possible next steps
 
-- Improve the password-generator validation
-- Use a cryptographically secure random source for password generation
-- Improve the phishing-checking rules
-- Improve mobile responsiveness and accessibility
-- Add automated browser tests
+- improve password-generator validation
+- use a cryptographically secure random source for generated passwords
+- improve the phishing-checking rules
+- improve mobile responsiveness and accessibility
+- add automated browser tests
